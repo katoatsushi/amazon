@@ -1,0 +1,20 @@
+<h1>Product#index</h1>
+<p>Find me in app/views/product/index.html.erb</p>
+<% if user_signed_in? %>
+	<%= link_to "商品を発行", new_product_path %>
+	<%= link_to "ログアウト", destroy_user_session_path, method: :delete %><br>
+<% else %>
+	<%= link_to "ログイン", new_user_session_path %><br>
+<% end %>
+
+<% @products.each do |p| %>
+	商品名:<%= p.title %>
+	詳細:<%= p.detail %>
+	値段:<%= p.price %>円
+	在庫数:<%= p.count %>
+
+	<% if user_signed_in? %>
+		<%#= link_to "カートに入れる" ,product_user_product_index_path(product_id: p.id), method: :post %>
+		<%= link_to "カートに入れる", product_path(id: p.id) %><br>
+	<% end %>
+<% end %>

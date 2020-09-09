@@ -1,0 +1,13 @@
+商品名：<%= @product.title %>
+本文:<%= @product.detail %>
+在庫:<%= @product.count %>
+値段：<%= @product.price %>
+
+<% if user_signed_in? %>
+<%= form_for @user_product, url: product_user_product_index_path(product_id: params[:id]), method: :post do |f| %>
+	注文数:<%= f.number_field :lot ,min: 0 ,max:200, value: 20 %><br>
+<%=f.submit 'カートに入れる', class: 'btn btn-primary btn-lg btn-block' %>
+<%end%>
+<% else %>
+	<h1>404 page not fount </h1>
+<% end %>

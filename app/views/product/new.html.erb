@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+<%= form_for @product, url: product_index_path, method: :post do |f| %>
+
+商品名：<%= f.text_field :title %><br> 	
+詳細：<%= f.text_area :detail %><br> 
+在庫数:<%= f.number_field :count ,min: 0 ,max:200, value: 20 %><br>
+値段：<%= f.number_field :price ,min: 0 ,max:200, value: 20 %><br> 
+<%=f.submit '商品を発行', class: 'btn btn-primary btn-lg btn-block' %>
+<%end%>
+<% else %>
+	<h1>404 page not fount </h1>
+<% end %>
