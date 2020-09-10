@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   root 'product#index'
+
+  post '/:product_id/cart', to: 'product#cart', as: 'cart'
+  delete '/:product_id/cart_back', to: 'product#cart_back', as: 'cart_back'
+
   resources :product, only: [:new, :create, :edit, :update, :show, :destroy] do
   	resources :user_product, only: [:create, :destroy]
   end

@@ -19,8 +19,6 @@ class ProductController < ApplicationController
     @product.save
     redirect_to root_path
   end
-
-
   def edit
     @product = Product.find(params[:id])
   end
@@ -31,6 +29,24 @@ class ProductController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
+  end
+
+  def cart
+  	up = UserProduct.new(user_id: current_user.id, product_id: params[:product_id], lot: 1)
+  	p = Product.find(params[:product_id])
+    p.count = p.count - 1
+  	p.save
+  	up.save
+  	redirect_to root_path
+  end
+
+  def cart_back
+  	up = UserProduct.where(user_id: current_user.id, product_id: params[:product_id]).first
+    up.delete
+    p = Product.find(params[:product_id])
+    p.count = p.count + 1
+  	p.save
+  	redirect_to root_path
   end
 
   def product_params

@@ -14,7 +14,18 @@
 	在庫数:<%= p.count %>
 
 	<% if user_signed_in? %>
-		<%#= link_to "カートに入れる" ,product_user_product_index_path(product_id: p.id), method: :post %>
-		<%= link_to "カートに入れる", product_path(id: p.id) %><br>
+	　<% up = current_user.user_products %>
+	  <% ok = false %>
+	  <% up.each do |up| %>
+	  	<% if up.product_id == p.id %>
+		  <% ok = true %>
+		<% end %>
+	  <% end %>
+	  <% if ok %>
+	 	 <%= link_to "カートから出す" ,cart_back_path(product_id: p.id), method: :delete %>/
+		  <%= link_to "カートに入れる" ,cart_path(product_id: p.id), method: :post %><br>
+	  <% else %>
+	  	<%= link_to "カートに入れる" ,cart_path(product_id: p.id), method: :post %><br>
+	  <% end %>
 	<% end %>
 <% end %>
